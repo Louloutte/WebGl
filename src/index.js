@@ -1,6 +1,14 @@
 import './css/style.styl'
+import grassTextureSource from './images/textures/house/grass.jpg'
 
 import * as THREE from 'three'
+
+/**
+ * Textures
+ */
+const textureLoader = new THREE.TextureLoader()
+
+const grassTexture = textureLoader.load(grassTextureSource)
 
 /**
  * Sizes
@@ -88,6 +96,7 @@ house.add(roof)
  */
 const doorLight = new THREE.PointLight()
 doorLight.position.x = - 1.02
+doorLight.castShadow = true
 house.add(doorLight)
 
 const ambientLight = new THREE.AmbientLight(0x555555)
@@ -97,6 +106,11 @@ const sunLight = new THREE.DirectionalLight(0xffffff, 0.6)
 sunLight.position.x = 1
 sunLight.position.y = 1
 sunLight.position.z = 1
+sunLight.castShadow = true
+sunLight.shadow.camera.top = 1.20
+sunLight.shadow.camera.right = 1.20
+sunLight.shadow.camera.bottom = - 1.20
+sunLight.shadow.camera.left = - 1.20
 scene.add(sunLight)
 
 /**
@@ -127,6 +141,16 @@ const loop = () =>
 }
 loop()
 
+// // Hot
+// if(module.hot)
+// {
+//     module.hot.accept()
+
+//     module.hot.dispose(() =>
+//     {
+//         console.log('dispose')
+//     })
+// }
 /**
  * Mesh
 
