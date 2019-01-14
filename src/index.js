@@ -9,6 +9,10 @@ import * as THREE from 'three'
 const textureLoader = new THREE.TextureLoader()
 
 const grassTexture = textureLoader.load(grassTextureSource)
+grassTexture.wrapS = THREE.RepeatWrapping
+grassTexture.wrapT = THREE.RepeatWrapping
+grassTexture.repeat.x = 4
+grassTexture.repeat.y = 4
 
 /**
  * Sizes
@@ -16,6 +20,17 @@ const grassTexture = textureLoader.load(grassTextureSource)
 const sizes = {}
 sizes.width = window.innerWidth
 sizes.height = window.innerHeight
+
+window.addEventListener('resize', () =>
+{
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+})
 
 /**
  * Cursor
@@ -58,7 +73,7 @@ house.add(walls)
 
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 4),
-    new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, color: 0x66bb66, side: THREE.DoubleSide, map: grassTexture })
+    new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, side: THREE.DoubleSide, map: grassTexture })
 )
 floor.receiveShadow = true
 floor.rotation.x = - Math.PI * 0.5
