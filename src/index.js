@@ -48,7 +48,7 @@ house.add(walls)
 
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 4),
-    new THREE.MeshBasicMaterial({ color: 0x66bb66 })
+    new THREE.MeshBasicMaterial({ color: 0x66bb66, side: THREE.DoubleSide })
 )
 floor.rotation.x = - Math.PI * 0.5
 floor.position.y = - 0.5
