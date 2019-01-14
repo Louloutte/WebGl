@@ -157,16 +157,7 @@ const loop = () =>
 loop()
 
 
-// // Hot
-// if(module.hot)
-// {
-//     module.hot.accept()
-
-//     module.hot.dispose(() =>
-//     {
-//         console.log('dispose')
-//     })
-// }
+/
 /**
  * Mesh
 
