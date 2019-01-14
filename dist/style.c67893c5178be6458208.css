@@ -1,0 +1,17 @@
+/*skroll barre disparaisse*/
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/*# sourceMappingURL=style.c67893c5178be6458208.css.map*/
