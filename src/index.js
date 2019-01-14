@@ -42,14 +42,17 @@ scene.add(house)
 
 const walls = new THREE.Mesh(
     new THREE.BoxGeometry(1.5, 1, 1.5),
-    new THREE.MeshBasicMaterial({ color: 0xffcc99 })
+    new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, color: 0xffcc99 })
 )
+walls.castShadow = true
+walls.receiveShadow = true
 house.add(walls)
 
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(4, 4),
-    new THREE.MeshBasicMaterial({ color: 0x66bb66, side: THREE.DoubleSide })
+    new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, color: 0x66bb66, side: THREE.DoubleSide })
 )
+floor.receiveShadow = true
 floor.rotation.x = - Math.PI * 0.5
 floor.position.y = - 0.5
 house.add(floor)
@@ -60,28 +63,48 @@ for(let i = 0; i < 50; i++)
 
     const bush = new THREE.Mesh(
         new THREE.SphereGeometry(radius),
-        new THREE.MeshBasicMaterial({ color: 0x55aa55 })
+        new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, color: 0x55aa55 })
     )
     bush.position.x = (Math.random() - 0.5) * 4
     bush.position.z = (Math.random() - 0.5) * 4
     bush.position.y = - 0.5 + radius * 0.5
+    bush.castShadow = true
+    bush.receiveShadow = true
     house.add(bush)
 }
 
 // Roof
 const roof = new THREE.Mesh(
     new THREE.ConeGeometry(1.25, 0.5, 4),
-    new THREE.MeshBasicMaterial({ color: 0x885522 })
+    new THREE.MeshStandardMaterial({ metalness: 0.3, roughness: 0.8, color: 0x885522 })
 )
 roof.position.y = 0.5 + 0.25
 roof.rotation.y = Math.PI * 0.25
+roof.castShadow = true
 house.add(roof)
+
+/**
+ * Lights
+ */
+const doorLight = new THREE.PointLight()
+doorLight.position.x = - 1.02
+house.add(doorLight)
+
+const ambientLight = new THREE.AmbientLight(0x555555)
+scene.add(ambientLight)
+
+const sunLight = new THREE.DirectionalLight(0xffffff, 0.6)
+sunLight.position.x = 1
+sunLight.position.y = 1
+sunLight.position.z = 1
+scene.add(sunLight)
 
 /**
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(sizes.width, sizes.height)
+renderer.shadowMap.enabled = true
 document.body.appendChild(renderer.domElement)
 
 /**
@@ -103,17 +126,6 @@ const loop = () =>
     renderer.render(scene, camera)
 }
 loop()
-
-// // Hot
-// if(module.hot)
-// {
-//     module.hot.accept()
-
-//     module.hot.dispose(() =>
-//     {
-//         console.log('dispose')
-//     })
-// }
 
 /**
  * Mesh
