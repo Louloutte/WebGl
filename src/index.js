@@ -68,6 +68,15 @@ for(let i = 0; i < 50; i++)
     house.add(bush)
 }
 
+// Roof
+const roof = new THREE.Mesh(
+    new THREE.ConeGeometry(1.25, 0.5, 4),
+    new THREE.MeshBasicMaterial({ color: 0x885522 })
+)
+roof.position.y = 0.5 + 0.25
+roof.rotation.y = Math.PI * 0.25
+house.add(roof)
+
 /**
  * Renderer
  */
@@ -95,6 +104,16 @@ const loop = () =>
 }
 loop()
 
+// // Hot
+// if(module.hot)
+// {
+//     module.hot.accept()
+
+//     module.hot.dispose(() =>
+//     {
+//         console.log('dispose')
+//     })
+// }
 
 /**
  * Mesh
